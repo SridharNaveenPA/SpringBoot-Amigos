@@ -49,11 +49,11 @@
         const tbody = document.querySelector('#sdeTable tbody');
         tbody.innerHTML = '';
 
-        data.forEach(sde => {
+        data.forEach(Task => {
           const row = `<tr>
-            <td>${sde.id}</td>
-            <td>${sde.name}</td>
-            <td>${sde.stack}</td>
+            <td>${Task.id}</td>
+            <td>${Task.name}</td>
+            <td>${Task.stack}</td>
           </tr>`;
           tbody.innerHTML += row;
         });

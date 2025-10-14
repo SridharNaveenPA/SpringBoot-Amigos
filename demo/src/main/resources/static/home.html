@@ -2,9 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Task List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            width: 50%;
+        }
+        th, td {
+            border: 2px solid #000000;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
+
+<h1>Task Manager</h1>
+
+<button onclick="loadTasks()">Load Tasks</button>
+
+<table id="tasktable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td colspan="2">Click "Load Tasks" to fetch data</td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    async function loadTasks() {
+        try {
+            const response = await fetch('/TASK');
+            const data = await response.json();
+
+            const tbody = document.querySelector('#tasktable tbody');
+            tbody.innerHTML = '';
+
+            data.forEach(task => {
+                const row = `<tr>
+                    <td>${task.id}</td>
+                    <td>${task.name}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+
+            console.log('Tasks loaded successfully!');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to load tasks. Make sure Spring Boot is running on port 8080.');
+        }
+    }
+</script>
 
 </body>
 </html>
